@@ -5,3 +5,9 @@ __pycache__
 .git
 *.pyc
 .mypy_cache
+.env
+.github
+*.md
+!README.md
+tests
+.pytest_cache
