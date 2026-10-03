@@ -21,12 +21,34 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload --port 8000
 ```
 
-### Docker
+### Docker (recommended for servers)
+
+Stockfish is installed inside the image — no host engine needed.
+
+**Compose (easiest on a VPS):**
+
+```bash
+cp .env.example .env   # optional: edit PORT / GRIT_PAWN_BIAS
+docker compose up -d --build
+curl -s http://localhost:8000/health
+```
+
+**Plain Docker:**
 
 ```bash
 docker build -t chessbot .
-docker run --rm -p 8000:8000 chessbot
+docker run -d --name chessbot --restart unless-stopped -p 8000:8000 chessbot
 ```
+
+Useful commands:
+
+```bash
+docker compose logs -f          # follow logs
+docker compose down             # stop
+docker compose up -d --build    # rebuild after git pull
+```
+
+Put a reverse proxy (Caddy/nginx) in front if you want HTTPS on a public domain.
 
 ## API
 
